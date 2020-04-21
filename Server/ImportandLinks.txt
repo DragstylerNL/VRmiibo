@@ -1,0 +1,1 @@
+https://github.com/remy/nodemon/issues/1619 == nodemon issue fix
