@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ARTest.unity
     guid: 53ecd8ff376095944a38ba8fc22c76c6
+  - enabled: 1
+    path: Assets/Scenes/ARMovement.unity
+    guid: 0783ff5331fe1324380928d7992c2e4e
   m_configObjects:
     com.unity.xr.arcore.PlayerSettings: {fileID: 11400000, guid: 2da27b80378f9724089135686c9d8a21,
       type: 2}
