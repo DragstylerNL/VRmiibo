@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class NetworkClient : SocketIOComponent
 {
+    // =============================================================================================== Private variables
+    private string NETWORKID;
+    
+    // ================================================================================================ public variables
+    public GameObject playerPrefab;
+    
     // =========================================================================================================== Start
     public override void Start()
     {
         base.Start();
+
         SetupEvents();
     }
 
@@ -16,10 +23,9 @@ public class NetworkClient : SocketIOComponent
     public override void Update()
     {
         base.Update();
-        if (Input.GetKeyDown(KeyCode.Space)) ShoutName();
     }
     
-    // ========================================================================================================== Update
+    // =================================================================================================== Set up Events
     private void SetupEvents()
     {
         // RECIEVING
@@ -27,12 +33,60 @@ public class NetworkClient : SocketIOComponent
         {
             print("Connection made to server ^^");
         });
-        On("register", (E) => 
+        On("register", (E) => // ------------ when registered on the server 
         {
-            print(RemoveQuotes(E.data["id"].ToString()));
+            Register(E);
         }); 
-        
-        
+        On("activePlayers", (E) =>
+        {
+            ActivePlayers(E);
+        });
+        On("updatePosition", (E) =>
+        {
+            UpdatePosition(E);
+        });
+        On("disconnected", (E) =>
+        {
+            Disconnect(E);
+        });
+    }
+
+    private void Register(SocketIOEvent E)
+    {
+        NETWORKID = RemoveQuotes(E.data["id"].ToString());   // get ID
+        GameObject playa = Instantiate(playerPrefab);              // spawn player
+        playa.name = "Client Player: " + NETWORKID;                // set player name
+        playa.GetComponent<Player>().SetID(NETWORKID);             // set ID in player
+        PlayerCollection.ActivePlayers.Add(NETWORKID, playa);      // add the player to the player collection
+    }
+
+    private void ActivePlayers(SocketIOEvent E)
+    {
+        var otherPlayerID = RemoveQuotes(E.data["id"].ToString()); // get other players ID
+        GameObject otherPlayer = Instantiate(playerPrefab);                    // spawn player
+        var pos = new Vector3(                                                 // get its position
+            float.Parse(E.data["x"].ToString()), 
+            float.Parse(E.data["y"].ToString()), 
+            float.Parse(E.data["z"].ToString()));
+        otherPlayer.transform.position = pos;                                  // set the position
+        otherPlayer.name = "Other Player: " + otherPlayerID;                   // set name
+        otherPlayer.GetComponent<BehaviourDisabler>().Disable();               // disable stuff like movement
+        PlayerCollection.ActivePlayers.Add(otherPlayerID, otherPlayer);        // set player in the database
+    }
+
+    private void UpdatePosition(SocketIOEvent E)
+    {
+        var ID = RemoveQuotes(E.data["id"].ToString());
+        var pos = new Vector3(
+            float.Parse(E.data["x"].ToString()),
+            float.Parse(E.data["y"].ToString()),
+            float.Parse(E.data["z"].ToString()));
+        PlayerCollection.ActivePlayers[ID].transform.position = pos;
+    }
+
+    private void Disconnect(SocketIOEvent E)
+    {
+        PlayerCollection.RemovePlayer(RemoveQuotes(E.data["id"].ToString()));
     }
 
     // ================================================================================================ Remove Quotation
@@ -48,15 +102,33 @@ public class NetworkClient : SocketIOComponent
         }
         return data;
     }
-
-    private void ShoutName()
+    
+    // ============================================================================================ Update pos on server
+    private JsonPosition jsonPosition = new JsonPosition();
+    public void SetPosition(Vector3 pos)
     {
-        jsonFile js = new jsonFile();
-        Emit("updateLogin", new JSONObject(JsonUtility.ToJson(js)));
+        jsonPosition.SetPos(pos);
+        Emit("updatePosition", new JSONObject(JsonUtility.ToJson(jsonPosition)));
     }
 }
 
-public class jsonFile
+public class jsonName
 {
-    public string name = "MyName";
+    public jsonName(string name)
+    {
+        this.name = name;
+    }
+    public string name;
+}
+
+public class JsonPosition
+{
+    public Vector3 pos;
+    public void SetPos(Vector3 transformposition)
+    {
+        
+        pos.x = (Mathf.Round(transformposition.x * 1000f) / 1000f);
+        pos.y = (Mathf.Round(transformposition.y * 1000f) / 1000f);
+        pos.z = (Mathf.Round(transformposition.z * 1000f) / 1000f);
+    }
 }

@@ -254,6 +254,8 @@ MonoBehaviour:
   ackExpirationTime: 1800
   pingInterval: 25
   pingTimeout: 60
+  playerPrefab: {fileID: 706320831777458192, guid: d262fb38c63f6ed479344eb64c6f01be,
+    type: 3}
 --- !u!114 &988147758
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +265,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 988147755}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea98566ebfc734c46913c7dba15fdc48, type: 3}
+  m_Script: {fileID: 11500000, guid: 32816f4368ea18e48ad320e37db2ced7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

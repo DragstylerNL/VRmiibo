@@ -1,4 +1,6 @@
 var shortID = require('shortid');
+var Vector3 = require('./Vector3.js');
+
 
 module.exports = class Player {
     constructor(){
@@ -6,5 +8,6 @@ module.exports = class Player {
         this.baseUsernameTag = '#0000';
         this.username = '';
         this.id = shortID.generate();
+        this.position = new Vector3();
     }
 }
