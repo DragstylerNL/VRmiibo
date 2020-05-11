@@ -23,10 +23,6 @@ public class NetworkClient : SocketIOComponent
     public override void Update()
     {
         base.Update();
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            Emit("registered", new JSONObject(JsonUtility.ToJson(new JsonRegister("fuckface", 0))));
-        }
     }
     
     // =================================================================================================== Set up Events
