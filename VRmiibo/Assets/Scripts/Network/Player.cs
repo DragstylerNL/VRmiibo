@@ -5,14 +5,16 @@ public class Player : MonoBehaviour
 {
     // =============================================================================================== private variables
     private NetworkClient CLIENT;
-    public string _playerID;
+    private string _playerID;
     private string _nickname;
+    private int _avatar;
 
     // ================================================================================================ public variables
 
     // ======================================================================================================== Set vars
     public void SetID(string ID){_playerID = ID;}
     public void SetNick(string nickname){_nickname = nickname;}
+    public void SetAvatar(int ava){_avatar = ava;}
     
     // =========================================================================================================== Start
     private void Start()

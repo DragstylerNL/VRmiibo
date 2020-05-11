@@ -23,21 +23,25 @@ public class NetworkClient : SocketIOComponent
     public override void Update()
     {
         base.Update();
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            Emit("registered", new JSONObject(JsonUtility.ToJson(new JsonRegister("fuckface", 0))));
+        }
     }
     
     // =================================================================================================== Set up Events
     private void SetupEvents()
     {
         // RECIEVING
-        On("open", (E) => 
+        On("open", (E) =>     // -------------- when connected
         {
             print("Connection made to server ^^");
         });
-        On("register", (E) => // ------------ when registered on the server 
+        On("registered", (E) => // ------------ when registered on the server 
         {
             Register(E);
         }); 
-        On("activePlayers", (E) =>
+        On("activePlayers", (E) => // --------- get all other active players
         {
             ActivePlayers(E);
         });
@@ -53,11 +57,14 @@ public class NetworkClient : SocketIOComponent
 
     private void Register(SocketIOEvent E)
     {
-        NETWORKID = RemoveQuotes(E.data["id"].ToString());   // get ID
-        GameObject playa = Instantiate(playerPrefab);              // spawn player
-        playa.name = "Client Player: " + NETWORKID;                // set player name
-        playa.GetComponent<Player>().SetID(NETWORKID);             // set ID in player
-        PlayerCollection.ActivePlayers.Add(NETWORKID, playa);      // add the player to the player collection
+        NETWORKID = RemoveQuotes(E.data["id"].ToString());               // get ID
+        GameObject playa = Instantiate(playerPrefab);                         // spawn player
+        playa.name = "Client Player: " + NETWORKID;                           // set player name
+        Player p = playa.GetComponent<Player>();                              // get player script
+        p.SetID(NETWORKID);                                                   // set ID in player
+        p.SetNick(RemoveQuotes(E.data["name"].ToString()));    // set players name
+        p.SetAvatar(int.Parse(E.data["avatar"].ToString()));             // set player avatar
+        PlayerCollection.ActivePlayers.Add(NETWORKID, playa);                 // add the player to the player collection
     }
 
     private void ActivePlayers(SocketIOEvent E)
@@ -65,28 +72,33 @@ public class NetworkClient : SocketIOComponent
         var otherPlayerID = RemoveQuotes(E.data["id"].ToString()); // get other players ID
         GameObject otherPlayer = Instantiate(playerPrefab);                    // spawn player
         var pos = new Vector3(                                                 // get its position
-            float.Parse(E.data["x"].ToString()), 
-            float.Parse(E.data["y"].ToString()), 
-            float.Parse(E.data["z"].ToString()));
+            float.Parse(E.data["x"].ToString()),     // X
+            float.Parse(E.data["y"].ToString()),     // Y
+            float.Parse(E.data["z"].ToString()));    // Z
         otherPlayer.transform.position = pos;                                  // set the position
         otherPlayer.name = "Other Player: " + otherPlayerID;                   // set name
+        Player p = otherPlayer.GetComponent<Player>();                         // get player script
+        p.SetID(NETWORKID);                                                    // set ID in player
+        p.SetNick(RemoveQuotes(E.data["name"].ToString()));    // set players name
+        p.SetAvatar(int.Parse(E.data["avatar"].ToString()));              // set player avatar
         otherPlayer.GetComponent<BehaviourDisabler>().Disable();               // disable stuff like movement
+        
         PlayerCollection.ActivePlayers.Add(otherPlayerID, otherPlayer);        // set player in the database
     }
 
     private void UpdatePosition(SocketIOEvent E)
     {
-        var ID = RemoveQuotes(E.data["id"].ToString());
-        var pos = new Vector3(
-            float.Parse(E.data["x"].ToString()),
-            float.Parse(E.data["y"].ToString()),
-            float.Parse(E.data["z"].ToString()));
-        PlayerCollection.ActivePlayers[ID].transform.position = pos;
+        var ID = RemoveQuotes(E.data["id"].ToString());            // get ID
+        var pos = new Vector3(                                                 // get its position
+            float.Parse(E.data["x"].ToString()),     // X
+            float.Parse(E.data["y"].ToString()),     // Y
+            float.Parse(E.data["z"].ToString()));    // Z
+        PlayerCollection.ActivePlayers[ID].transform.position = pos;           // set the position
     }
 
     private void Disconnect(SocketIOEvent E)
     {
-        PlayerCollection.RemovePlayer(RemoveQuotes(E.data["id"].ToString()));
+        PlayerCollection.RemovePlayer(RemoveQuotes(E.data["id"].ToString())); // Remove disconnected player
     }
 
     // ================================================================================================ Remove Quotation
@@ -112,13 +124,15 @@ public class NetworkClient : SocketIOComponent
     }
 }
 
-public class jsonName
+public class JsonRegister
 {
-    public jsonName(string name)
+    public string name;
+    public int avatar;
+    public JsonRegister(string name, int avatar)
     {
         this.name = name;
+        this.avatar = avatar;
     }
-    public string name;
 }
 
 public class JsonPosition
@@ -127,8 +141,8 @@ public class JsonPosition
     public void SetPos(Vector3 transformposition)
     {
         
-        pos.x = (Mathf.Round(transformposition.x * 1000f) / 1000f);
-        pos.y = (Mathf.Round(transformposition.y * 1000f) / 1000f);
-        pos.z = (Mathf.Round(transformposition.z * 1000f) / 1000f);
+        pos.x = (Mathf.Round(transformposition.x * 100f) / 100f);
+        pos.y = (Mathf.Round(transformposition.y * 100f) / 100f);
+        pos.z = (Mathf.Round(transformposition.z * 100f) / 100f);
     }
 }
