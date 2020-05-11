@@ -29,25 +29,25 @@ public class NetworkClient : SocketIOComponent
     private void SetupEvents()
     {
         // RECIEVING
-        On("open", (E) =>     // -------------- when connected
+        On("open", (data) =>     // -------------- when connected
         {
             print("Connection made to server ^^");
         });
-        On("registered", (E) => // ------------ when registered on the server 
+        On("registered", (data) => // ------------ when registered on the server 
         {
-            Register(E);
+            Register(data);
         }); 
-        On("activePlayers", (E) => // --------- get all other active players
+        On("activePlayers", (data) => // --------- get all other active players
         {
-            ActivePlayers(E);
+            ActivePlayers(data);
         });
-        On("updatePosition", (E) => // -------- update positions of players
+        On("updatePosition", (data) => // -------- update positions of players
         {
-            UpdatePosition(E);
+            UpdatePosition(data);
         });
-        On("disconnected", (E) => // ---------- on other player disconnect
+        On("disconnected", (data) => // ---------- on other player disconnect
         {
-            Disconnect(E);
+            Disconnect(data);
         });
     }
 
