@@ -12,7 +12,7 @@ public class MinigameArea : MonoBehaviour
     [SerializeField] private int maxPlayersAllowed;
     private int _amountOfPeopleReady = 0;
     private int _amountOfPeopleInside = 0;
-    private Collider colliding;
+    private GameObject colliding;
 
     //has to be changed to multiplayer purposes
     private void UpdatePanel()
@@ -22,9 +22,8 @@ public class MinigameArea : MonoBehaviour
     }
     
     //when a player enters the area
-    private void OnTriggerEnter(Collider other)
+    public void Entered(GameObject other)
     {
-        if (!other.CompareTag("Player") || _amountOfPeopleInside >= maxPlayersAllowed) return;
         colliding = other;
         _amountOfPeopleInside++;
         minigamePanelElements.gameObject.SetActive(true);
