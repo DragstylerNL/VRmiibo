@@ -45,11 +45,11 @@ public class NetworkClient : SocketIOComponent
         {
             ActivePlayers(E);
         });
-        On("updatePosition", (E) =>
+        On("updatePosition", (E) => // -------- update positions of players
         {
             UpdatePosition(E);
         });
-        On("disconnected", (E) =>
+        On("disconnected", (E) => // ---------- on other player disconnect
         {
             Disconnect(E);
         });
@@ -113,6 +113,12 @@ public class NetworkClient : SocketIOComponent
             data += array[i];
         }
         return data;
+    }
+    
+    // ============================================================================================== Register on server
+    public void RegisterOnServer(string username, int arrayPos)
+    {
+        Emit("registered", new JSONObject(JsonUtility.ToJson(new JsonRegister(username, arrayPos))));
     }
     
     // ============================================================================================ Update pos on server
