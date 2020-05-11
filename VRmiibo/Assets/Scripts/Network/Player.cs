@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BehaviourDisabler))]
 public class Player : MonoBehaviour
@@ -11,10 +12,15 @@ public class Player : MonoBehaviour
 
     // ================================================================================================ public variables
 
-    // ======================================================================================================== Set vars
-    public void SetID(string ID){_playerID = ID;}
-    public void SetNick(string nickname){_nickname = nickname;}
-    public void SetAvatar(int ava){_avatar = ava;}
+    // ================================================================================================= Public Set vars
+    public void SetID(string ID) // --------------------------------- set ID
+    {_playerID = ID;}
+
+    public void SetNick(string nickname) // ------------------------- set Name
+    {GetComponentInChildren<Text>().text = _nickname = nickname;}
+
+    public void SetAvatar(int ava) // ------------------------------- set Avatar
+    {_avatar = ava;}
     
     // =========================================================================================================== Start
     private void Start()
