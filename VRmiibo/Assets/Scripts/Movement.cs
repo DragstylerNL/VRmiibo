@@ -5,23 +5,24 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private KeyCode[] directions;
     
     //Temporary movement
     void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(directions[0]))
         {
             transform.Translate(Vector3.forward * speed);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(directions[1]))
         {
             transform.Translate(Vector3.left* speed);
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(directions[2]))
         {
             transform.Translate(Vector3.back* speed);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(directions[3]))
         {
             transform.Translate(Vector3.right* speed);
         }

@@ -6,66 +6,54 @@ using UnityEngine.UI;
 
 public class MinigameArea : MonoBehaviour
 {
-    [SerializeField] private GameObject minigamePanel;
+    [SerializeField] private MinigamePanelElements minigamePanelElements;
     [SerializeField] private Sprite minigameSprite;
     [SerializeField] private string minigameText;
+    [SerializeField] private int maxPlayersAllowed;
     private int _amountOfPeopleReady = 0;
     private int _amountOfPeopleInside = 0;
+    private Collider colliding;
 
     //has to be changed to multiplayer purposes
     private void UpdatePanel()
     {
-        Image[] panelImages = minigamePanel.GetComponentsInChildren<Image>();
-        for (int i = 0; i < panelImages.Length; i++)
-        {
-            if (panelImages[i].name == "Minigame Image")
-            {
-                panelImages[i].sprite = minigameSprite;
-            }
-        }
-        Text[] texts = minigamePanel.GetComponentsInChildren<Text>();
-        for (int i = 0; i < texts.Length; i++)
-        {
-            if (texts[i].name == "MinigameText")
-            {
-                texts[i].text = minigameText;
-            }
-            else if(texts[i].name == "Players Waiting text")
-            {
-                texts[i].text = "" + _amountOfPeopleReady + "/" + _amountOfPeopleInside + "are ready";
-            }
-        }
+        minigamePanelElements.minigameImage.sprite = minigameSprite;
+        minigamePanelElements.waitingText.text = "" + _amountOfPeopleReady + "/" + _amountOfPeopleInside + " are ready to play " + minigameText;
     }
     
     //when a player enters the area
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
+        if (!other.CompareTag("Player") || _amountOfPeopleInside >= maxPlayersAllowed) return;
+        colliding = other;
         _amountOfPeopleInside++;
-        minigamePanel.SetActive(true);
+        minigamePanelElements.gameObject.SetActive(true);
         UpdatePanel();
-        minigamePanel.GetComponentInChildren<Button>().onClick.AddListener(ReadyUnReady);
+        minigamePanelElements.readyButton.onClick.AddListener(ReadyUnReady);
+        minigamePanelElements.closeWindowButton.onClick.AddListener(CloseWindow);
+        AddProfileSprite(colliding.GetComponent<Player>().playerSprite);
     }
     
-    //when a player leaves the area
-    private void OnTriggerExit(Collider other)
+    //when the player closes the window
+    private void CloseWindow()
     {
-        if (!other.CompareTag("Player")) return;
         _amountOfPeopleInside--;
-        minigamePanel.SetActive(false);
-        Text readyUnreadyButtonText = minigamePanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>();
+        minigamePanelElements.gameObject.SetActive(false);
+        Text readyUnreadyButtonText = minigamePanelElements.readyButton.GetComponentInChildren<Text>();
         if (readyUnreadyButtonText.text == "Unready")
         {
             readyUnreadyButtonText.text = "Ready";
             _amountOfPeopleReady--;
         }
-        minigamePanel.GetComponentInChildren<Button>().onClick.RemoveListener(ReadyUnReady);
+        minigamePanelElements.readyButton.onClick.RemoveListener(ReadyUnReady);
+        RemoveProfileSprite(colliding.GetComponent<Player>().playerSprite);
+        colliding = null;
     }
 
     //when people press the ready unready button
     public void ReadyUnReady()
     {
-        Text readyUnreadyButtonText = minigamePanel.GetComponentInChildren<Button>().GetComponentInChildren<Text>();
+        Text readyUnreadyButtonText = minigamePanelElements.readyButton.GetComponentInChildren<Text>();
         if (readyUnreadyButtonText.text == "Ready")
         {
             readyUnreadyButtonText.text = "Unready";
@@ -77,5 +65,31 @@ public class MinigameArea : MonoBehaviour
             _amountOfPeopleReady--;
         }
         UpdatePanel();
+    }
+
+    private void AddProfileSprite(Sprite sprite)
+    {
+        for (int i = 0; i < minigamePanelElements.profilePictures.Length; i++)
+        {
+            if (minigamePanelElements.profilePictures[i].sprite == null)
+            {
+                minigamePanelElements.profilePictures[i].sprite = sprite;
+                minigamePanelElements.profilePictures[i].color = Color.white;
+                break;
+            }
+        }
+    }
+    
+    private void RemoveProfileSprite(Sprite sprite)
+    {
+        for (int i = 0; i < minigamePanelElements.profilePictures.Length; i++)
+        {
+            if (minigamePanelElements.profilePictures[i].sprite == sprite)
+            {
+                minigamePanelElements.profilePictures[i].sprite = null;
+                minigamePanelElements.profilePictures[i].color = Color.clear;
+                break;
+            }
+        }
     }
 }
