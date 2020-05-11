@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class ImageViewer : MonoBehaviour
 {
     public List<Sprite> Sprites = new List<Sprite>();
+    public int current = 0;
 
     [SerializeField]private Image _image;
-    private int current = 0;
 
     private void Start()
     {
