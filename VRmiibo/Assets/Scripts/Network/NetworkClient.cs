@@ -115,6 +115,7 @@ public class NetworkClient : SocketIOComponent
     public void RegisterOnServer(string username, int arrayPos)
     {
         Emit("registered", new JSONObject(JsonUtility.ToJson(new JsonRegister(username, arrayPos))));
+        print("registering");
     }
     
     // ============================================================================================ Update pos on server
