@@ -33,6 +33,7 @@ io.on('connection', function(socket) {
         player.position.y = data.pos.y;
         player.position.z = data.pos.z;
         socket.broadcast.emit('updatePosition', {id: player.id, x: player.position.x, y: player.position.y, z: player.position.z});
+        socket.emit('updatePosition', {id: player.id, x: player.position.x, y: player.position.y, z: player.position.z});
     });
 
     socket.on('disconnect', function(){
