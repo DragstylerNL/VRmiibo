@@ -1,2 +1,0 @@
-https://github.com/remy/nodemon/issues/1619 == nodemon issue fix
-https://www.youtube.com/watch?v=J0udhTJwR88& == knowledge on how to build a server
