@@ -93,6 +93,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         //_placedObject.transform.localScale = Vector3.zero;
         if (Physics.Raycast(raycast, out RaycastHit raycastHit))
         {
+            if(raycastHit.collider.gameObject.CompareTag("plane"))
             //_placedObject.transform.localScale = new Vector3(_placedObject.transform.localScale.x / raycastHit.collider.gameObject.transform.localScale.x,_placedObject.transform.localScale.y / raycastHit.collider.gameObject.transform.localScale.y,_placedObject.transform.localScale.z / raycastHit.collider.gameObject.transform.localScale.z);
             _placedObject.transform.localScale = raycastHit.collider.gameObject.transform.lossyScale;
         }
