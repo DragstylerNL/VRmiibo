@@ -13,6 +13,8 @@ public class MinigameArea : MonoBehaviour
     private int _amountOfPeopleReady = 0;
     private int _amountOfPeopleInside = 0;
     private GameObject colliding;
+    private bool visible;
+    private int profileSpot;
 
     //has to be changed to multiplayer purposes
     private void UpdatePanel()
@@ -25,12 +27,15 @@ public class MinigameArea : MonoBehaviour
     public void Entered(GameObject other)
     {
         if (_amountOfPeopleInside >= maxPlayersAllowed) return;
+        visible = true;
         colliding = other;
         _amountOfPeopleInside++;
         minigamePanelElements.gameObject.SetActive(true);
         UpdatePanel();
         minigamePanelElements.readyButton.onClick.AddListener(ReadyUnReady);
-        minigamePanelElements.closeWindowButton.onClick.AddListener(CloseWindow);
+        minigamePanelElements.readyButton.onClick.AddListener(ChangeProfileSprite);
+        minigamePanelElements.closeWindowButton.onClick.AddListener(VisibleWindow);
+        //minigamePanelElements.closeWindowButton.onClick.AddListener(CloseWindow);
         AddProfileSprite(colliding.GetComponent<Player>().playerSprite);
     }
     
@@ -46,7 +51,8 @@ public class MinigameArea : MonoBehaviour
             _amountOfPeopleReady--;
         }
         minigamePanelElements.readyButton.onClick.RemoveListener(ReadyUnReady);
-        RemoveProfileSprite(colliding.GetComponent<Player>().playerSprite);
+        minigamePanelElements.readyButton.onClick.RemoveListener(ChangeProfileSprite);
+        RemoveProfileSprite(colliding.GetComponent<Player>());
         colliding = null;
     }
 
@@ -73,23 +79,43 @@ public class MinigameArea : MonoBehaviour
         {
             if (minigamePanelElements.profilePictures[i].sprite == null)
             {
+                profileSpot = i;
                 minigamePanelElements.profilePictures[i].sprite = sprite;
                 minigamePanelElements.profilePictures[i].color = Color.white;
                 break;
             }
         }
     }
+
+    private void ChangeProfileSprite()
+    {
+        Text readyUnreadyButtonText = minigamePanelElements.readyButton.GetComponentInChildren<Text>();
+        if (readyUnreadyButtonText.text == "Ready")
+        {
+            minigamePanelElements.profilePictures[profileSpot].sprite = colliding.GetComponent<Player>().playerSprite;
+        }
+        else
+        {
+            minigamePanelElements.profilePictures[profileSpot].sprite = colliding.GetComponent<Player>().playerReadySprite;
+        }
+    }
     
-    private void RemoveProfileSprite(Sprite sprite)
+    private void RemoveProfileSprite(Player player)
     {
         for (int i = 0; i < minigamePanelElements.profilePictures.Length; i++)
         {
-            if (minigamePanelElements.profilePictures[i].sprite == sprite)
+            if (minigamePanelElements.profilePictures[i].sprite == player.playerSprite || minigamePanelElements.profilePictures[i].sprite == player.playerReadySprite)
             {
                 minigamePanelElements.profilePictures[i].sprite = null;
                 minigamePanelElements.profilePictures[i].color = Color.clear;
                 break;
             }
         }
+    }
+
+    private void VisibleWindow()
+    {
+        visible = !visible;
+        minigamePanelElements.gameObject.GetComponent<Animator>().SetBool("Visible", visible);
     }
 }

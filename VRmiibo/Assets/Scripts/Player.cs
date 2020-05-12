@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public Sprite playerSprite;
+    public Sprite playerReadySprite;
 
     private void OnTriggerEnter(Collider other)
     {
