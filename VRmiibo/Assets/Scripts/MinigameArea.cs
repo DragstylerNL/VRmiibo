@@ -24,6 +24,7 @@ public class MinigameArea : MonoBehaviour
     //when a player enters the area
     public void Entered(GameObject other)
     {
+        if (_amountOfPeopleInside >= maxPlayersAllowed) return;
         colliding = other;
         _amountOfPeopleInside++;
         minigamePanelElements.gameObject.SetActive(true);
