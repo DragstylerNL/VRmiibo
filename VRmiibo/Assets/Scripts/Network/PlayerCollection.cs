@@ -13,4 +13,9 @@ public class PlayerCollection : MonoBehaviour
         Destroy(ActivePlayers[ID]);
         ActivePlayers.Remove(ID);
     }
+
+    public static GameObject GetPlayer(string ID)
+    {
+        return ActivePlayers[ID];
+    }
 }

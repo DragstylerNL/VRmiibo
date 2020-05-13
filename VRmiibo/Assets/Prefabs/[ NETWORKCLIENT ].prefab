@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4726110737264705745}
   m_Layer: 0
   m_Name: '[ NETWORKCLIENT ]'
-  m_TagString: Untagged
+  m_TagString: NETWORKCLIENT
   m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   pingTimeout: 60
   playerPrefab: {fileID: 706320831777458192, guid: d262fb38c63f6ed479344eb64c6f01be,
     type: 3}
+  NETWORKID: 
 --- !u!114 &1040673845466337208
 MonoBehaviour:
   m_ObjectHideFlags: 0
