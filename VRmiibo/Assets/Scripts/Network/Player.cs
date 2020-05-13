@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // =============================================================================================== private variables
-    private NetworkClient CLIENT;
+    //private NetworkClient CLIENT;
     private string _playerID;
     private string _nickname;
     private int _avatar;
@@ -25,21 +25,12 @@ public class Player : MonoBehaviour
     // =========================================================================================================== Start
     private void Start()
     {
-        CLIENT = GameObject.Find("[ NETWORKCLIENT ]").GetComponent<NetworkClient>();
+        //CLIENT = GameObject.Find("[ NETWORKCLIENT ]").GetComponent<NetworkClient>();
     }
 
     // ========================================================================================================== Update
     private void Update()
     {
-        UpdatePosition();
-    }
-    
-    // ========================================================================================================== Update
-    private void UpdatePosition()
-    {
-        var position = transform.position;
-        position += Vector3.right * (Input.GetAxis("Horizontal") * Time.deltaTime * 20f);
-        position += Vector3.up * (Input.GetAxis("Vertical") * Time.deltaTime * 20f);
-        transform.position = position;
+		
     }
 }
