@@ -8,8 +8,11 @@ public class ARTapToPlaceObject : MonoBehaviour
 {
     public GameObject objectToPlace;
     public GameObject placementIndicator;
-    
+    public float speed;
+
+    private GameObject _player;
     private ARRaycastManager _raycastManager;
+    private Pose _targetPose;
     private Pose _placementPose;
     private bool _placementPoseIsValid = false;
     void Start()
@@ -22,16 +25,25 @@ public class ARTapToPlaceObject : MonoBehaviour
     {
         UpdatePlacementPose();
         UpdatePlacementIndecator();
+        float step =  speed * Time.deltaTime;
 
-        if (_placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (_placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetKeyDown(KeyCode.A))
         {
-            PlaceObject();
+            if(_player == null)
+                PlaceObject();
+            else
+            {
+                _targetPose = _placementPose;
+            }
         }
+        if (_player != null)
+            _player.transform.position = Vector3.MoveTowards(_player.transform.position, _targetPose.position, step);
     }
 
     private void PlaceObject()
     {
-        Instantiate(objectToPlace, _placementPose.position, _placementPose.rotation);
+        _player = Instantiate(objectToPlace, _placementPose.position, _placementPose.rotation);
+        Debug.Log(_player);
     }
 
     private void UpdatePlacementIndecator()
