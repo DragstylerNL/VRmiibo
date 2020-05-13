@@ -6,11 +6,12 @@ using UnityEngine;
 public class NetworkClient : SocketIOComponent
 {
     // =============================================================================================== Private variables
-    private string NETWORKID;
+   
     
     // ================================================================================================ public variables
     public GameObject playerPrefab;
-    
+     public string NETWORKID;
+     
     // =========================================================================================================== Start
     public override void Start()
     {
