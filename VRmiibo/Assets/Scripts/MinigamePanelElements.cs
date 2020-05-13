@@ -10,4 +10,18 @@ public class MinigamePanelElements : MonoBehaviour
     public Text waitingText;
     public Image[] profilePictures;
     public Button closeWindowButton;
+    [SerializeField] private Sprite ShowWindowSprite;
+    [SerializeField] private Sprite HideWindowSprite;
+
+    public void ChangeWindowSprite()
+    {
+        if (closeWindowButton.image.sprite == ShowWindowSprite)
+        {
+            closeWindowButton.image.sprite = HideWindowSprite;
+        }
+        else
+        {
+            closeWindowButton.image.sprite = ShowWindowSprite;
+        }
+    }
 }
