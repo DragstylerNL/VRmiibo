@@ -26,15 +26,24 @@ public class MinigameArea : MonoBehaviour
     //when a player enters the area
     public void Entered(GameObject other)
     {
-        if (_amountOfPeopleInside >= maxPlayersAllowed) return;
         visible = true;
         colliding = other;
-        _amountOfPeopleInside++;
         minigamePanelElements.gameObject.SetActive(true);
+        minigamePanelElements.readyButton.GetComponentInChildren<Text>().text = "Join lobby";
+        minigamePanelElements.readyButton.onClick.AddListener(JoinLobby);
         UpdatePanel();
+    }
+
+    private void JoinLobby()
+    {
+        if (_amountOfPeopleInside >= maxPlayersAllowed) return;
+        _amountOfPeopleInside++;
+        minigamePanelElements.readyButton.onClick.RemoveListener(JoinLobby);
         minigamePanelElements.readyButton.onClick.AddListener(ReadyUnReady);
+        minigamePanelElements.readyButton.GetComponentInChildren<Text>().text = "Ready";
         minigamePanelElements.closeWindowButton.onClick.AddListener(VisibleWindow);
         AddProfileSprite(colliding.GetComponent<Player>());
+        UpdatePanel();
     }
     
     //when the player closes the window
