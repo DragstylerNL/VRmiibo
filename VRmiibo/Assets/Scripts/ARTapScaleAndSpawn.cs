@@ -36,10 +36,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         {
             if (!_placed)
                 PlaceObject();
-            else
-            {
-                SwitchPlane();
-            }
+           
         }
     }
 

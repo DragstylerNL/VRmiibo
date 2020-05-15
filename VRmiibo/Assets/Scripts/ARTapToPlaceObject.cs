@@ -7,7 +7,6 @@ using UnityEngine.XR.ARSubsystems;
 
 public class ARTapToPlaceObject : MonoBehaviour
 {
-    public GameObject objectToPlace;
     public GameObject placementIndicator;
     public float speed;
     
