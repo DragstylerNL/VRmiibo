@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class MinigameArea : MonoBehaviour
@@ -15,6 +12,15 @@ public class MinigameArea : MonoBehaviour
     private GameObject colliding;
     private bool visible;
     private int profileSpot;
+    private NetworkClient CLIENT;
+    
+    public Enums.Areas area;
+
+    private void Start()
+    {
+        CLIENT = GameObject.Find("[ NETWORKCLIENT ]").GetComponent<NetworkClient>();
+        HubMinigameManager.AddMe(area.ToString(), this);
+    }
 
     //has to be changed to multiplayer purposes
     private void UpdatePanel()
@@ -45,9 +51,16 @@ public class MinigameArea : MonoBehaviour
         AddProfileSprite(colliding.GetComponent<Player>());
         UpdatePanel();
     }
-    
+
+    public void SetAmount(int amount, int ready)
+    {
+        _amountOfPeopleReady = ready;
+        _amountOfPeopleInside = amount;
+        UpdatePanel();
+    }
+
     //when the player closes the window
-    private void CloseWindow()
+    public void CloseWindow()
     {
         _amountOfPeopleInside--;
         minigamePanelElements.gameObject.SetActive(false);
@@ -71,12 +84,14 @@ public class MinigameArea : MonoBehaviour
             readyUnreadyButtonText.text = "Unready";
             ChangeProfileSprite(true);
             _amountOfPeopleReady++;
+            CLIENT.SetMinigame(area, Enums.areastate.ready);
         }
         else
         {
             readyUnreadyButtonText.text = "Ready";
             ChangeProfileSprite(false);
             _amountOfPeopleReady--;
+            CLIENT.SetMinigame(area, Enums.areastate.unready);
         }
         UpdatePanel();
     }
@@ -91,7 +106,7 @@ public class MinigameArea : MonoBehaviour
                 profileSpot = i;
                 minigamePanelElements.profilePictures[i].sprite = player.playerSprite;
                 minigamePanelElements.profilePictures[i].color = Color.white;
-                minigamePanelElements.profilePictures[i].GetComponentInChildren<Text>().text = AdjustName(player.playerName);
+                minigamePanelElements.profilePictures[i].GetComponentInChildren<Text>().text = AdjustName(player.nickname);
                 minigamePanelElements.profilePictures[i].GetComponentInChildren<Text>().color = Color.white;
                 break;
             }
@@ -161,7 +176,7 @@ public class MinigameArea : MonoBehaviour
     }
 
     //hides and shows the window and changes the hide/show window button
-    private void VisibleWindow()
+    public void VisibleWindow()
     {
         visible = !visible;
         minigamePanelElements.ChangeWindowSprite();
