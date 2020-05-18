@@ -5,19 +5,20 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     // =============================================================================================== private variables
-    //private NetworkClient CLIENT;
+    private NetworkClient CLIENT;
     private string _playerID;
-    private string _nickname;
     private int _avatar;
 
     // ================================================================================================ public variables
+    public string nickname;
+    public Sprite playerSprite;
 
     // ================================================================================================= Public Set vars
     public void SetID(string ID) // --------------------------------- set ID
     {_playerID = ID;}
 
     public void SetNick(string nickname) // ------------------------- set Name
-    {GetComponentInChildren<Text>().text = _nickname = nickname;}
+    {GetComponentInChildren<Text>().text = this.nickname = nickname;}
 
     public void SetAvatar(int ava) // ------------------------------- set Avatar
     {_avatar = ava;}
@@ -25,12 +26,34 @@ public class Player : MonoBehaviour
     // =========================================================================================================== Start
     private void Start()
     {
-        //CLIENT = GameObject.Find("[ NETWORKCLIENT ]").GetComponent<NetworkClient>();
+        CLIENT = GameObject.Find("[ NETWORKCLIENT ]").GetComponent<NetworkClient>();
     }
 
     // ========================================================================================================== Update
     private void Update()
     {
-		
+		if(Input.GetKey(KeyCode.D))transform.position += Vector3.right * Time.deltaTime;
+    }
+    
+    // ================================================================== on entering and exiting minigame starter areas
+    private void OnTriggerEnter(Collider other)
+    {
+        if(CLIENT.NETWORKID != _playerID) return;
+        if (other.CompareTag("MiniGameZone"))
+        {
+            MinigameArea mini = other.GetComponent<MinigameArea>();
+            mini.Entered(gameObject);
+            CLIENT.SetMinigame(mini.area, Enums.areastate.enter);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(CLIENT.NETWORKID != _playerID) return;
+        if (other.CompareTag("MiniGameZone"))
+        {
+            MinigameArea mini = other.GetComponent<MinigameArea>();
+            mini.CloseWindow();
+            CLIENT.SetMinigame(mini.area, Enums.areastate.exit);
+        }
     }
 }

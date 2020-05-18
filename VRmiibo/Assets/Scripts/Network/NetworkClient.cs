@@ -1,17 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SocketIO;
 using UnityEngine;
 
 public class NetworkClient : SocketIOComponent
 {
-    // =============================================================================================== Private variables
-   
+    // ========================================================================================================== Events 
+    public Action<string, int, int> updateMinigameUI = delegate(string area, int inarea, int ready){};
     
+    // =============================================================================================== Private variables
+    private Enums.Areas _currentArea = Enums.Areas.hub;
+
     // ================================================================================================ public variables
     public GameObject playerPrefab;
-     public string NETWORKID;
-     
+    public string NETWORKID;
+
     // =========================================================================================================== Start
     public override void Start()
     {
@@ -45,6 +49,10 @@ public class NetworkClient : SocketIOComponent
         On("updatePosition", (data) => // -------- update positions of players
         {
             UpdatePosition(data);
+        });
+        On("gameZone", (data) => // -------------- area updates
+        {
+            UpdateGameZone(data);
         });
         On("disconnected", (data) => // ---------- on other player disconnect
         {
@@ -93,6 +101,14 @@ public class NetworkClient : SocketIOComponent
         PlayerCollection.ActivePlayers[ID].transform.position = pos;           // set the position
     }
 
+    private void UpdateGameZone(SocketIOEvent E)
+    {
+        var area = RemoveQuotes(E.data["area"].ToString());
+        if (_currentArea.ToString() != area) return;
+
+        updateMinigameUI(area, int.Parse(E.data["inarea"].ToString()), int.Parse(E.data["ready"].ToString()));
+    }
+    
     private void Disconnect(SocketIOEvent E)
     {
         PlayerCollection.RemovePlayer(RemoveQuotes(E.data["id"].ToString())); // Remove disconnected player
@@ -126,6 +142,14 @@ public class NetworkClient : SocketIOComponent
         jsonPosition.SetPos(pos);
         Emit("updatePosition", new JSONObject(JsonUtility.ToJson(jsonPosition)));
     }
+   
+    // ================================================================================================== minigame areas
+    public void SetMinigame(Enums.Areas area, Enums.areastate state)
+    {
+        _currentArea = state == Enums.areastate.exit? Enums.Areas.hub : area;
+        Emit("gameZone", new JSONObject(JsonUtility.ToJson(new JsonAreaUpdate(area.ToString(), state.ToString()))));
+    }
+    
 }
 
 public class JsonRegister
@@ -148,5 +172,16 @@ public class JsonPosition
         pos.x = (Mathf.Round(transformposition.x * 100f) / 100f);
         pos.y = (Mathf.Round(transformposition.y * 100f) / 100f);
         pos.z = (Mathf.Round(transformposition.z * 100f) / 100f);
+    }
+}
+
+public class JsonAreaUpdate 
+{
+    public string area;
+    public string state;
+    public JsonAreaUpdate(string area, string state)
+    {
+        this.area = area;
+        this.state = state;
     }
 }
