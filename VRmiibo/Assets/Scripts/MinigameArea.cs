@@ -35,8 +35,9 @@ public class MinigameArea : MonoBehaviour
         visible = true;
         colliding = other;
         minigamePanelElements.gameObject.SetActive(true);
-        minigamePanelElements.readyButton.GetComponentInChildren<Text>().text = "Join lobby";
+        minigamePanelElements.readyButton.GetComponentInChildren<Text>().text = "Join Lobby";
         minigamePanelElements.readyButton.onClick.AddListener(JoinLobby);
+        minigamePanelElements.closeWindowButton.onClick.AddListener(VisibleWindow);
         UpdatePanel();
     }
 
@@ -47,8 +48,8 @@ public class MinigameArea : MonoBehaviour
         minigamePanelElements.readyButton.onClick.RemoveListener(JoinLobby);
         minigamePanelElements.readyButton.onClick.AddListener(ReadyUnReady);
         minigamePanelElements.readyButton.GetComponentInChildren<Text>().text = "Ready";
-        minigamePanelElements.closeWindowButton.onClick.AddListener(VisibleWindow);
         AddProfileSprite(colliding.GetComponent<Player>());
+        CLIENT.SetMinigame(area, Enums.areastate.enter);
         UpdatePanel();
     }
 

@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
         {
             MinigameArea mini = other.GetComponent<MinigameArea>();
             mini.Entered(gameObject);
-            CLIENT.SetMinigame(mini.area, Enums.areastate.enter);
         }
     }
     private void OnTriggerExit(Collider other)
