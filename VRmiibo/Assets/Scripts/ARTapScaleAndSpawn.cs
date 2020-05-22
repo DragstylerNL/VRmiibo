@@ -18,9 +18,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
     private bool _placementPoseIsValid = false;
     private bool _placed = false;
     private ARRaycastHit _arRaycastHit;
-    
-    public GameObject placementIndicator;
-    
+
     void Start()
     {
         _raycastManager = FindObjectOfType<ARRaycastManager>();
@@ -30,7 +28,6 @@ public class ARTapScaleAndSpawn : MonoBehaviour
     void Update()
     {
         UpdatePlacementPose();
-        UpdatePlacementIndecator();
 
         if (_placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetKeyDown(KeyCode.A))
         {
@@ -52,19 +49,6 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         _placedObject = Instantiate(_placable, _placementPose.position, _placementPose.rotation);
         _placed = true;
         RayIt();
-    }
-    
-    private void UpdatePlacementIndecator()
-    {
-        if (_placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(_placementPose.position, _placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
     }
 
     private void UpdatePlacementPose()
@@ -92,7 +76,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         {
             if(raycastHit.collider.gameObject.CompareTag("plane"))
             //_placedObject.transform.localScale = new Vector3(_placedObject.transform.localScale.x / raycastHit.collider.gameObject.transform.localScale.x,_placedObject.transform.localScale.y / raycastHit.collider.gameObject.transform.localScale.y,_placedObject.transform.localScale.z / raycastHit.collider.gameObject.transform.localScale.z);
-            _placedObject.transform.localScale = raycastHit.collider.gameObject.transform.lossyScale;
+                _placedObject.transform.localScale = raycastHit.collider.gameObject.transform.lossyScale;
         }
     }    
 }

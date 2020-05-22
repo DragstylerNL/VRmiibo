@@ -6,9 +6,16 @@ using  System.Diagnostics;
 
 public class Pathfinding : MonoBehaviour
 {
-    public Transform seeker, target; 
+    private Transform seeker;
+    private NetworkClient _networkClient;
     
      Grid grid;
+
+     void Start()
+     {
+         _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
+         seeker = PlayerCollection.GetPlayer(_networkClient.NETWORKID).transform;
+     }
 
      void Awake()
      {
@@ -17,19 +24,20 @@ public class Pathfinding : MonoBehaviour
 
      private void Update()
      {
+         /*
          if (Input.GetButtonDown("Jump"))
          {
-             FindPath(seeker.position,target.position);
-         }
+             FindPath(_target.position);
+         }*/
        
      }
 
-     void FindPath(Vector3 startPos, Vector3 targetPos)
+     public void FindPath(Vector3 targetPos)
     {
         Stopwatch sw = new Stopwatch();
         sw.Start();
         
-        Node startNode = grid.NodeFromWorldPoint(startPos);
+        Node startNode = grid.NodeFromWorldPoint(seeker.position);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
         
         List<Node> openSet = new List<Node>();
