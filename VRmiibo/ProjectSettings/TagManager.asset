@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MiniGameZone
+  - Car
   layers:
   - Default
   - TransparentFX
