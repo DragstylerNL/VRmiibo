@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SocketIO;
@@ -11,6 +12,8 @@ public class NetworkClient : SocketIOComponent
     
     // =============================================================================================== Private variables
     private Enums.Areas _currentArea = Enums.Areas.hub;
+    private bool _hubHasSpawned = false;
+    private Transform _hub;
 
     // ================================================================================================ public variables
     public GameObject playerPrefab;
@@ -30,6 +33,13 @@ public class NetworkClient : SocketIOComponent
         base.Update();
     }
     
+    // ========================================================================================================= set hub
+    public void SetHub(bool hubHasSpawned, Transform hub)
+    {
+        _hubHasSpawned = hubHasSpawned;
+        _hub = hub;
+    }
+    
     // =================================================================================================== Set up Events
     private void SetupEvents()
     {
@@ -40,30 +50,36 @@ public class NetworkClient : SocketIOComponent
         });
         On("registered", (data) => // ------------ when registered on the server 
         {
-            Register(data);
+            StartCoroutine(Register(data));
         }); 
         On("activePlayers", (data) => // --------- get all other active players
         {
-            ActivePlayers(data);
+            StartCoroutine(ActivePlayers(data));
         });
         On("updatePosition", (data) => // -------- update positions of players
         {
-            UpdatePosition(data);
+            if(_hubHasSpawned)UpdatePosition(data);
         });
         On("gameZone", (data) => // -------------- area updates
         {
-            UpdateGameZone(data);
+            if(_hubHasSpawned)UpdateGameZone(data);
         });
         On("disconnected", (data) => // ---------- on other player disconnect
         {
-            Disconnect(data);
+            StartCoroutine(Disconnect(data));
         });
     }
 
-    private void Register(SocketIOEvent E)
+    IEnumerator Register(SocketIOEvent E)
     {
+        while (!_hubHasSpawned)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0);
+        
         NETWORKID = RemoveQuotes(E.data["id"].ToString());               // get ID
-        GameObject playa = Instantiate(playerPrefab);                         // spawn player
+        GameObject playa = Instantiate(playerPrefab, _hub);                   // spawn player
         playa.name = "Client Player: " + NETWORKID;                           // set player name
         Player p = playa.GetComponent<Player>();                              // get player script
         p.SetID(NETWORKID);                                                   // set ID in player
@@ -72,10 +88,16 @@ public class NetworkClient : SocketIOComponent
         PlayerCollection.ActivePlayers.Add(NETWORKID, playa);                 // add the player to the player collection
     }
 
-    private void ActivePlayers(SocketIOEvent E)
+    IEnumerator ActivePlayers(SocketIOEvent E)
     {
+        while (!_hubHasSpawned)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0);
+        
         var otherPlayerID = RemoveQuotes(E.data["id"].ToString()); // get other players ID
-        GameObject otherPlayer = Instantiate(playerPrefab);                    // spawn player
+        GameObject otherPlayer = Instantiate(playerPrefab, _hub);              // spawn player
         var pos = new Vector3(                                                 // get its position
             float.Parse(E.data["x"].ToString()),     // X
             float.Parse(E.data["y"].ToString()),     // Y
@@ -109,8 +131,14 @@ public class NetworkClient : SocketIOComponent
         updateMinigameUI(area, int.Parse(E.data["inarea"].ToString()), int.Parse(E.data["ready"].ToString()));
     }
     
-    private void Disconnect(SocketIOEvent E)
+    IEnumerator Disconnect(SocketIOEvent E)
     {
+        while (!_hubHasSpawned)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0);
+        
         PlayerCollection.RemovePlayer(RemoveQuotes(E.data["id"].ToString())); // Remove disconnected player
     }
 
