@@ -1,35 +1,42 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BumperCarsUI : MonoBehaviour
 {
-    [SerializeField]private GameObject _player;
-    private bool boosting = false;
-
-    public int cooldown;
+    private CarMovement _player;
+    private NetworkClient _networkClient;
+    private bool _boosting = false;
     
+    public int cooldown;
+
+    private void Start()
+    {
+        _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
+        _player = PlayerCollection.GetPlayer(_networkClient.NETWORKID).GetComponent<CarMovement>();
+    }
+
     public void Left()
     {
-        //Put reference to player right function
+        _player.TurnLeft();
     }
 
     public void Right()
     {
-        //Put reference to player left function
+        _player.TurnRight();
     }
 
     public void Boost()
     {
-        if(!boosting)
+        if(!_boosting)
             StartCoroutine(Boosting());
     }
 
     private IEnumerator Boosting()
     {
-        boosting = true;
-        //Put reference to player boost function
+        _player.SetBoost(true);
         yield return new WaitForSeconds(cooldown);
-        boosting = false;
+        _player.SetBoost(false);
     }
 }
