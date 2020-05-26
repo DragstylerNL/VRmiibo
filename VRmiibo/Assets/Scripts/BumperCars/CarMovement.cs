@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CarMovement : MonoBehaviour
 {
@@ -64,13 +63,5 @@ public class CarMovement : MonoBehaviour
     private void SetBoost(bool activate)
     {
         boosting = activate;
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        if (other.collider.CompareTag("Car"))
-        {
-            FindObjectOfType<CarCollisionManager>().Bump(this, other.collider.GetComponent<CarMovement>());
-        }
     }
 }

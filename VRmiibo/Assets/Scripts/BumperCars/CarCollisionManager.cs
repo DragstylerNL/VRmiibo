@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CarCollisionManager : MonoBehaviour
 {
@@ -9,6 +6,7 @@ public class CarCollisionManager : MonoBehaviour
 
     public void Bump(CarMovement car1, CarMovement car2)
     {
+        Debug.Log("" + car1.name + " hit " + car2.name);
         Vector3 TempDirCar1 = car1.Direction;
         Vector3 TempDirCar2 = car2.Direction;
         car1.Direction = TempDirCar2 + car1.transform.forward * -1 * bounceStrength;
