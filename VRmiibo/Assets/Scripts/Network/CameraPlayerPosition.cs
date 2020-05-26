@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraPlayerPosition : MonoBehaviour
 {
 	// ================================================================================================ Public Variables
-
+	public static Dictionary<string, GameObject> ActivePlayerCameras = new Dictionary<string, GameObject>();
+	
 	// ======================================================================================== SerializeField Variables
 	
 	// =============================================================================================== Private Variables
@@ -13,29 +16,30 @@ public class CameraPlayerPosition : MonoBehaviour
 	// =========================================================================================================== Awake
 	private void Awake()
 	{
-		//CLIENT = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
+		CLIENT = GetComponent<NetworkClient>();
 	}
 	
     // =========================================================================================================== Start
     private void Start()
     {
-        
+	    StartCoroutine(CalculatePosition());
     }
 
     // ========================================================================================================== Update
     private void Update()
     {
-	    CalculatePosition();
+	    
     }
     
     // ========================================================================================================== Update
-    private void CalculatePosition()
+    IEnumerator CalculatePosition()
     {
-	    Vector3 pos = _camera.localPosition;
-	    Vector3 rotation = _camera.rotation.eulerAngles;
-
-	    Vector3 mirrorHubRot = _testhub.rotation.eulerAngles;
-	    _testPrefab.rotation = Quaternion.Euler(rotation + mirrorHubRot);
-	    _testPrefab.localPosition = pos;
+	    while (true)
+	    {
+		    Vector3 pos = _camera.localPosition;
+		    Vector3 rot = _camera.rotation.eulerAngles;
+		    CLIENT.SetPhone(pos, rot);
+		    yield return new WaitForSeconds(0.2f);
+	    }
     }
 }

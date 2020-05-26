@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1040673845466337210}
+  - component: {fileID: 4726110737264705745}
   - component: {fileID: 1040673845466337211}
   - component: {fileID: 1040673845466337208}
-  - component: {fileID: 4726110737264705745}
+  - component: {fileID: -1112881583020378486}
   m_Layer: 0
   m_Name: '[ NETWORKCLIENT ]'
   m_TagString: NETWORKCLIENT
@@ -33,6 +34,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4726110737264705745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040673845466337213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d8a1c7fe757d9f4daa8399ec21d176e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1040673845466337211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32816f4368ea18e48ad320e37db2ced7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4726110737264705745
+--- !u!114 &-1112881583020378486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -75,6 +88,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1040673845466337213}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d8a1c7fe757d9f4daa8399ec21d176e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5285d3dc78759c040a810a49247c121c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hub: {fileID: 0}
+  _camera: {fileID: 0}
+  _testhub: {fileID: 0}
+  _testPrefab: {fileID: 0}
