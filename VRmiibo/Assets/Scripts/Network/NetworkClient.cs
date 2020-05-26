@@ -150,6 +150,9 @@ public class NetworkClient : SocketIOComponent
         Emit("gameZone", new JSONObject(JsonUtility.ToJson(new JsonAreaUpdate(area.ToString(), state.ToString()))));
     }
     
+    // ========================================================================================== Phone pos and rotation
+    //public void SetPhone(Vector3)
+    
 }
 
 public class JsonRegister
