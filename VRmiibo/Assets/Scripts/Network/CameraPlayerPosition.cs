@@ -30,9 +30,10 @@ public class CameraPlayerPosition : MonoBehaviour
     {
 	    if (start)
 	    {
-		    start = false;
 		    _camera = Camera.main.transform;
-		    StartCoroutine(CalculatePosition());
+		    Vector3 pos = -_hub.position;
+		    Vector3 rot = _camera.rotation.eulerAngles;
+		    CLIENT.SetCamera(pos, rot);
 	    }
     }
     // ========================================================================================================== Update
@@ -40,9 +41,7 @@ public class CameraPlayerPosition : MonoBehaviour
     {
 	    while (true)
 	    {
-		    Vector3 pos = -_hub.position;
-		    Vector3 rot = _camera.rotation.eulerAngles;
-		    CLIENT.SetCamera(pos, rot);
+		    
 		    yield return new WaitForSeconds(0.2f);
 	    }
     }
