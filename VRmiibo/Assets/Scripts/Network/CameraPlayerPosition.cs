@@ -6,6 +6,7 @@ public class CameraPlayerPosition : MonoBehaviour
 {
 	// ================================================================================================ Public Variables
 	public static Dictionary<string, GameObject> ActivePlayerCameras = new Dictionary<string, GameObject>();
+	public static bool start = false;
 	
 	// ======================================================================================== SerializeField Variables
 	
@@ -20,18 +21,15 @@ public class CameraPlayerPosition : MonoBehaviour
 	}
 	
     // =========================================================================================================== Start
-    private void Start()
-    {
-	    StartCoroutine(CalculatePosition());
-	    _camera = Camera.main.transform;
-    }
-
-    // ========================================================================================================== Update
     private void Update()
     {
-	    
+	    if (start)
+	    {
+		    start = false;
+		    StartCoroutine(CalculatePosition());
+		    _camera = Camera.main.transform;
+	    }
     }
-    
     // ========================================================================================================== Update
     IEnumerator CalculatePosition()
     {
