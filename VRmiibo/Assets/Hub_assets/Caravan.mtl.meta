@@ -1,5 +1,6 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< HEAD:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
 guid: 30b1da7011b32784b8287819a9940080
 =======
@@ -9,6 +10,14 @@ folderAsset: yes
 =======
 guid: 4255c402f30cc2543a7fc9f6f5032c6c
 >>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83
+=======
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/BumperCars.meta
+guid: 1026ff4b18e34b346b2da82d1ea5f55e
+folderAsset: yes
+=======
+guid: f707d0b31e14ed341af0d2cd42febd46
+>>>>>>> feature/worldCamera:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
+>>>>>>> feature/worldCamera
 DefaultImporter:
   externalObjects: {}
   userData: 
