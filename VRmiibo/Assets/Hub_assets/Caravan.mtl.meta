@@ -1,5 +1,23 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
 guid: 29d05f2fc216455408bfb504c42f6e4e
+=======
+guid: 074013c423fa16e4387590654bb15c1b
+folderAsset: yes
+>>>>>>> 3f785fd444ee152f9bd274879edd360ccc9491fc:VRmiibo/Assets/Graphics.meta
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
+guid: 30b1da7011b32784b8287819a9940080
+=======
+guid: ce4143c9c558ec64b816ff1e2aaa7f8f
+folderAsset: yes
+>>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83:VRmiibo/Assets/Animations.meta
+=======
+guid: 4255c402f30cc2543a7fc9f6f5032c6c
+>>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83
+>>>>>>> 3f785fd444ee152f9bd274879edd360ccc9491fc
 DefaultImporter:
   externalObjects: {}
   userData: 

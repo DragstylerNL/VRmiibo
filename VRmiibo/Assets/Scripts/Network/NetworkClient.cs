@@ -1,17 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using SocketIO;
 using UnityEngine;
 
 public class NetworkClient : SocketIOComponent
 {
-    // =============================================================================================== Private variables
-   
+    // ========================================================================================================== Events 
+    public Action<string, int, int> updateMinigameUI = delegate(string area, int inarea, int ready){};
     
+    // =============================================================================================== Private variables
+    private Enums.Areas _currentArea = Enums.Areas.hub;
+    private bool _hubHasSpawned = false;
+    private Transform _hub;
+
     // ================================================================================================ public variables
     public GameObject playerPrefab;
-     public string NETWORKID;
-     
+    public string NETWORKID;
+
     // =========================================================================================================== Start
     public override void Start()
     {
@@ -26,6 +33,13 @@ public class NetworkClient : SocketIOComponent
         base.Update();
     }
     
+    // ========================================================================================================= set hub
+    public void SetHub(bool hubHasSpawned, Transform hub)
+    {
+        _hubHasSpawned = hubHasSpawned;
+        _hub = hub;
+    }
+    
     // =================================================================================================== Set up Events
     private void SetupEvents()
     {
@@ -36,26 +50,36 @@ public class NetworkClient : SocketIOComponent
         });
         On("registered", (data) => // ------------ when registered on the server 
         {
-            Register(data);
+            StartCoroutine(Register(data));
         }); 
         On("activePlayers", (data) => // --------- get all other active players
         {
-            ActivePlayers(data);
+            StartCoroutine(ActivePlayers(data));
         });
         On("updatePosition", (data) => // -------- update positions of players
         {
-            UpdatePosition(data);
+            if(_hubHasSpawned)UpdatePosition(data);
+        });
+        On("gameZone", (data) => // -------------- area updates
+        {
+            if(_hubHasSpawned)UpdateGameZone(data);
         });
         On("disconnected", (data) => // ---------- on other player disconnect
         {
-            Disconnect(data);
+            StartCoroutine(Disconnect(data));
         });
     }
 
-    private void Register(SocketIOEvent E)
+    IEnumerator Register(SocketIOEvent E)
     {
+        while (!_hubHasSpawned)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0);
+        
         NETWORKID = RemoveQuotes(E.data["id"].ToString());               // get ID
-        GameObject playa = Instantiate(playerPrefab);                         // spawn player
+        GameObject playa = Instantiate(playerPrefab, _hub);                   // spawn player
         playa.name = "Client Player: " + NETWORKID;                           // set player name
         Player p = playa.GetComponent<Player>();                              // get player script
         p.SetID(NETWORKID);                                                   // set ID in player
@@ -64,10 +88,16 @@ public class NetworkClient : SocketIOComponent
         PlayerCollection.ActivePlayers.Add(NETWORKID, playa);                 // add the player to the player collection
     }
 
-    private void ActivePlayers(SocketIOEvent E)
+    IEnumerator ActivePlayers(SocketIOEvent E)
     {
+        while (!_hubHasSpawned)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0);
+        
         var otherPlayerID = RemoveQuotes(E.data["id"].ToString()); // get other players ID
-        GameObject otherPlayer = Instantiate(playerPrefab);                    // spawn player
+        GameObject otherPlayer = Instantiate(playerPrefab, _hub);              // spawn player
         var pos = new Vector3(                                                 // get its position
             float.Parse(E.data["x"].ToString()),     // X
             float.Parse(E.data["y"].ToString()),     // Y
@@ -93,8 +123,22 @@ public class NetworkClient : SocketIOComponent
         PlayerCollection.ActivePlayers[ID].transform.position = pos;           // set the position
     }
 
-    private void Disconnect(SocketIOEvent E)
+    private void UpdateGameZone(SocketIOEvent E)
     {
+        var area = RemoveQuotes(E.data["area"].ToString());
+        if (_currentArea.ToString() != area) return;
+
+        updateMinigameUI(area, int.Parse(E.data["inarea"].ToString()), int.Parse(E.data["ready"].ToString()));
+    }
+    
+    IEnumerator Disconnect(SocketIOEvent E)
+    {
+        while (!_hubHasSpawned)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        yield return new WaitForSeconds(0);
+        
         PlayerCollection.RemovePlayer(RemoveQuotes(E.data["id"].ToString())); // Remove disconnected player
     }
 
@@ -126,6 +170,14 @@ public class NetworkClient : SocketIOComponent
         jsonPosition.SetPos(pos);
         Emit("updatePosition", new JSONObject(JsonUtility.ToJson(jsonPosition)));
     }
+   
+    // ================================================================================================== minigame areas
+    public void SetMinigame(Enums.Areas area, Enums.areastate state)
+    {
+        _currentArea = state == Enums.areastate.exit? Enums.Areas.hub : area;
+        Emit("gameZone", new JSONObject(JsonUtility.ToJson(new JsonAreaUpdate(area.ToString(), state.ToString()))));
+    }
+    
 }
 
 public class JsonRegister
@@ -148,5 +200,16 @@ public class JsonPosition
         pos.x = (Mathf.Round(transformposition.x * 100f) / 100f);
         pos.y = (Mathf.Round(transformposition.y * 100f) / 100f);
         pos.z = (Mathf.Round(transformposition.z * 100f) / 100f);
+    }
+}
+
+public class JsonAreaUpdate 
+{
+    public string area;
+    public string state;
+    public JsonAreaUpdate(string area, string state)
+    {
+        this.area = area;
+        this.state = state;
     }
 }

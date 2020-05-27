@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/Astar.meta
 guid: 32b50609ed17a2e42858d76bf669bd6e
+=======
+guid: aed3402c18bb5454eb825f439a997bd8
+>>>>>>> 3f785fd444ee152f9bd274879edd360ccc9491fc:VRmiibo/Assets/Animations/WindowAnim.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
