@@ -34,6 +34,7 @@ public class NetworkClient : SocketIOComponent
     {
         _hubHasSpawned = hubHasSpawned;
         _hub = hub;
+        GetComponent<CameraPlayerPosition>().SetHub(hub);
     }
     
     // =================================================================================================== Set up Events
@@ -66,6 +67,7 @@ public class NetworkClient : SocketIOComponent
         });
         On("CameraUpdate", (data) => // ---------- on other player moved phone
         {
+            
             if(_hubHasSpawned) CameraUpdate(data);
         });
     }
@@ -147,6 +149,7 @@ public class NetworkClient : SocketIOComponent
 
     private void CameraUpdate(SocketIOEvent E)
     {
+        print("what the fuck is going on?");
         var ID = RemoveQuotes(E.data["id"].ToString());            // get ID
         var pos = new Vector3(                                                 // get its position
             float.Parse(E.data["x"].ToString()),     // X
