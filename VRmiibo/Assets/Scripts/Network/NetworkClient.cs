@@ -24,7 +24,7 @@ public class NetworkClient : SocketIOComponent
 
     // ================================================================================================ public variables
     #region public variables
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, cameraPrefab;
     public string NETWORKID;
     #endregion
 
@@ -93,6 +93,8 @@ public class NetworkClient : SocketIOComponent
         p.SetNick(RemoveQuotes(E.data["name"].ToString()));    // set players name
         p.SetAvatar(int.Parse(E.data["avatar"].ToString()));             // set player avatar
         PlayerCollection.ActivePlayers.Add(NETWORKID, playa);                 // add the player to the player collection
+
+        GameObject cam = Instantiate(cameraPrefab, _hub);
     }
 
     IEnumerator ActivePlayers(SocketIOEvent E)
@@ -200,7 +202,7 @@ public class NetworkClient : SocketIOComponent
     }
     
     // ========================================================================================== Phone pos and rotation
-    public void SetPhone(Vector3 pos, Vector3 rot)
+    public void SetCamera(Vector3 pos, Vector3 rot)
     {
         Emit("CameraUpdate", new JSONObject(JsonUtility.ToJson( new JsonCameraUpdate(pos, rot))));
     }

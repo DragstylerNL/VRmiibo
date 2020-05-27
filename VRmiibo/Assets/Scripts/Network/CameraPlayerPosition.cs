@@ -11,7 +11,7 @@ public class CameraPlayerPosition : MonoBehaviour
 	
 	// =============================================================================================== Private Variables
 	private NetworkClient CLIENT;
-	[SerializeField]private Transform _hub, _camera, _testhub, _testPrefab;
+	[SerializeField]private Transform _hub, _camera;
 	
 	// =========================================================================================================== Awake
 	private void Awake()
@@ -38,7 +38,7 @@ public class CameraPlayerPosition : MonoBehaviour
 	    {
 		    Vector3 pos = _camera.localPosition;
 		    Vector3 rot = _camera.rotation.eulerAngles;
-		    CLIENT.SetPhone(pos, rot);
+		    CLIENT.SetCamera(pos, rot);
 		    yield return new WaitForSeconds(0.2f);
 	    }
     }
