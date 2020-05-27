@@ -11,7 +11,7 @@ public class CameraPlayerPosition : MonoBehaviour
 	
 	// =============================================================================================== Private Variables
 	private NetworkClient CLIENT;
-	[SerializeField]private Transform _hub, _camera;
+	private Transform _camera;
 	
 	// =========================================================================================================== Awake
 	private void Awake()
@@ -23,6 +23,7 @@ public class CameraPlayerPosition : MonoBehaviour
     private void Start()
     {
 	    StartCoroutine(CalculatePosition());
+	    _camera = Camera.main.transform;
     }
 
     // ========================================================================================================== Update

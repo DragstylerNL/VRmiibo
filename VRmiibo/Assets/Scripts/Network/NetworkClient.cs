@@ -10,23 +10,16 @@ using UnityEngine;
 public class NetworkClient : SocketIOComponent
 {
     // ========================================================================================================== Events 
-    #region Events
     public Action<string, int, int> updateMinigameUI = delegate(string area, int inarea, int ready){};
     
-    #endregion
-    
     // =============================================================================================== Private variables
-    #region Private Variables
     private Enums.Areas _currentArea = Enums.Areas.hub;
     private bool _hubHasSpawned = false;
     private Transform _hub;
-    #endregion
 
     // ================================================================================================ public variables
-    #region public variables
     public GameObject playerPrefab, cameraPrefab;
     public string NETWORKID;
-    #endregion
 
     // =========================================================================================================== Start
     public override void Start()
@@ -73,7 +66,7 @@ public class NetworkClient : SocketIOComponent
         });
         On("CameraUpdate", (data) => // ---------- on other player moved phone
         {
-            CameraUpdate(data);
+            if(_hubHasSpawned) CameraUpdate(data);
         });
     }
 
@@ -118,8 +111,9 @@ public class NetworkClient : SocketIOComponent
         p.SetNick(RemoveQuotes(E.data["name"].ToString()));    // set players name
         p.SetAvatar(int.Parse(E.data["avatar"].ToString()));              // set player avatar
         otherPlayer.GetComponent<BehaviourDisabler>().Disable();               // disable stuff like movement
-        
         PlayerCollection.ActivePlayers.Add(otherPlayerID, otherPlayer);        // set player in the database
+        GameObject cam = Instantiate(cameraPrefab, _hub);                      // set players cam
+        CameraPlayerPosition.ActivePlayerCameras.Add(otherPlayerID, cam);      // save in database
     }
 
     private void UpdatePosition(SocketIOEvent E)
