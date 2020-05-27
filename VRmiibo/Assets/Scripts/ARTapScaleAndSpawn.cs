@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Security.Policy;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.XR.ARFoundation;
@@ -12,6 +13,7 @@ using Vector3 = UnityEngine.Vector3;
 public class ARTapScaleAndSpawn : MonoBehaviour
 {
     [SerializeField]private GameObject _placable;
+    private NetworkClient _networkClient;
     private GameObject _placedObject;
     private ARRaycastManager _raycastManager;
     private Pose _placementPose;
@@ -21,6 +23,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
 
     void Start()
     {
+        _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
         _raycastManager = FindObjectOfType<ARRaycastManager>();
         Debug.Log(_raycastManager);
     }
@@ -41,14 +44,15 @@ public class ARTapScaleAndSpawn : MonoBehaviour
     {
         _placedObject.transform.position = _placementPose.position;
         _placedObject.transform.rotation = _placementPose.rotation;
-        RayIt();
+        RayScale();
     }
 
     private void PlaceObject()
     {
         _placedObject = Instantiate(_placable, _placementPose.position, _placementPose.rotation);
         _placed = true;
-        RayIt();
+        _networkClient.SetHub(true, _placedObject.transform);
+        RayScale();
     }
 
     private void UpdatePlacementPose()
@@ -68,7 +72,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         }
     }
 
-    private void RayIt()
+    private void RayScale()
     {
         Ray raycast = Camera.main.ScreenPointToRay(new Vector3(0.5f, 0.5f));
         //_placedObject.transform.localScale = Vector3.zero;
