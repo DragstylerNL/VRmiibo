@@ -10,5 +10,6 @@ public class SwitchPlayArea : MonoBehaviour
     {
         GameObject oldArea = GameObject.FindWithTag("PlayArea");
         Instantiate(newPlayArea, oldArea.transform);
+        Destroy(oldArea);
     }
 }

@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour
 {
-    public int target;
-    
     private NetworkClient _networkClient;//Network will need to send data when player enters the play zone to give the player a player number ID(Player 1, player 2, etc)
     
     private void OnCollisionEnter(Collision other)
