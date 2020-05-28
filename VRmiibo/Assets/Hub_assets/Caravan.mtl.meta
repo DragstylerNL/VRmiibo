@@ -1,6 +1,17 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
 <<<<<<< HEAD
+guid: 29d05f2fc216455408bfb504c42f6e4e
+=======
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/MiniGames.meta
+guid: 4daf814594117af498b054269efd091e
+folderAsset: yes
+=======
+guid: 4255c402f30cc2543a7fc9f6f5032c6c
+>>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
+>>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83
+=======
+<<<<<<< HEAD
 <<<<<<< HEAD:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
 guid: 29d05f2fc216455408bfb504c42f6e4e
 =======
@@ -30,6 +41,7 @@ guid: f707d0b31e14ed341af0d2cd42febd46
 >>>>>>> feature/worldCamera:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
 >>>>>>> feature/worldCamera
 >>>>>>> 822bd891ec6ea5127fcefe61698977b901176714
+>>>>>>> a3648a3ea8971286e91807ac6208138dec5e9a58
 DefaultImporter:
   externalObjects: {}
   userData: 

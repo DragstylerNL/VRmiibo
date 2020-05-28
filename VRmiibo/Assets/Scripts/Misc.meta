@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta~HEAD
 <<<<<<< HEAD:VRmiibo/Assets/Scripts/Misc.meta
-guid: 97c2bc2ede3199b4186039fe93bce9aa
+guid: a94cca07ff3f5f049bf1472237b6fcc3
 folderAsset: yes
 =======
 guid: 4255c402f30cc2543a7fc9f6f5032c6c
 >>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta~HEAD
-=======
-guid: 809a83e473966b144b855c9448f6f26a
->>>>>>> a3648a3ea8971286e91807ac6208138dec5e9a58:VRmiibo/Assets/Scenes/BumperContollUI.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
