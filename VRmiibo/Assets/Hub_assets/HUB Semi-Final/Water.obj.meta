@@ -3,7 +3,13 @@ guid: 9085935eb2a61c64a9da10aa019de060
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WaterMat
+    second: {fileID: -7418415496985509053, guid: 9085935eb2a61c64a9da10aa019de060,
+      type: 3}
   materials:
     materialImportMode: 1
     materialName: 0

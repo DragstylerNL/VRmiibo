@@ -1119,6 +1119,12 @@ PrefabInstance:
       propertyPath: url
       value: 'ws://server-arhub.herokuapp.com:80/socket.io/?EIO=4&transport=websocket '
       objectReference: {fileID: 0}
+    - target: {fileID: 1040673845466337211, guid: 7a1b4acc615f09e48acd81bbd0e9a235,
+        type: 3}
+      propertyPath: cameraPrefab
+      value: 
+      objectReference: {fileID: 7400731485744319477, guid: e23d7d4309f636141ad9cf2919311565,
+        type: 3}
     - target: {fileID: 1040673845466337213, guid: 7a1b4acc615f09e48acd81bbd0e9a235,
         type: 3}
       propertyPath: m_Name

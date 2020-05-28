@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(NetworkClient))]
 public class PlayerCollection : MonoBehaviour
 {
     // ================================================================================================ Public variables
