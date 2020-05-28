@@ -17,10 +17,17 @@ public class CarMovement : MonoBehaviour
     private int stepGoal;
     public float stopSpeed;
     public bool stop;
+    public bool tempStop = false;
+    public float stopTimer;
     public Vector3 CurrentDirection
     {
         get { return currentDirection; }
         set { currentDirection = value; }
+    }
+    
+    public bool Boosting
+    {
+        get { return boosting; }
     }
 
     void Start()
@@ -48,8 +55,14 @@ public class CarMovement : MonoBehaviour
             if (boosting){
                 //direction += transform.forward * boostAccelerationSpeed;
                 //if (direction.magnitude > maxBoostSpeed) direction = direction.normalized * maxBoostSpeed;
-                currentDirection = Vector3.RotateTowards(currentDirection,transform.forward * maxBoostSpeed, rotationSpeed * Time.deltaTime, boostAccelerationSpeed);
-                transform.position += currentDirection; 
+                if (!tempStop)
+                {
+                    currentDirection = Vector3.RotateTowards(currentDirection,transform.forward * maxBoostSpeed, rotationSpeed * Time.deltaTime, boostAccelerationSpeed);
+                    transform.position += currentDirection; 
+                } else if (Time.time >= stopTimer)
+                {
+                    tempStop = false;
+                }
             }
             else
             {

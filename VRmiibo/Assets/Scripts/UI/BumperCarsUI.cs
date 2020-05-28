@@ -13,8 +13,8 @@ public class BumperCarsUI : MonoBehaviour
 
     private void Start()
     {
-        _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
-        _player = PlayerCollection.GetPlayer(_networkClient.NETWORKID).GetComponent<CarMovement>();
+        //_networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
+        _player = GameObject.FindWithTag("Player").GetComponent<CarMovement>();
     }
 
     public void Left()
