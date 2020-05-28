@@ -40,7 +40,7 @@ public class CameraPlayerPosition : MonoBehaviour
     {
 	    while (true)
 	    {
-		    Vector3 pos = -_hub.position;
+		    Vector3 pos = _hub.position + _camera.position;
 		    Vector3 rot = _camera.rotation.eulerAngles;
 		    CLIENT.SetCamera(pos, rot);
 		    yield return new WaitForSeconds(0.2f);
