@@ -1,8 +1,28 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/Loading.meta
+guid: 6f152eea92730f94fbd7a568c28493f8
+=======
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/Astar/ground.mat.meta
+guid: f721cab04c33199478e98655a1273988
+NativeFormatImporter:
+=======
+=======
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/BumperCars.meta
+>>>>>>> 822bd891ec6ea5127fcefe61698977b901176714
+>>>>>>> a3648a3ea8971286e91807ac6208138dec5e9a58
 guid: 1026ff4b18e34b346b2da82d1ea5f55e
+>>>>>>> 1ac12008f6d1450c392b806269eb1ab7e866af83:VRmiibo/Assets/Scripts/BumperCars.meta
 folderAsset: yes
+=======
+guid: f707d0b31e14ed341af0d2cd42febd46
+>>>>>>> feature/worldCamera:VRmiibo/Assets/Hub_assets/Caravan.mtl.meta
 DefaultImporter:
+>>>>>>> 3f785fd444ee152f9bd274879edd360ccc9491fc:VRmiibo/Assets/Scripts/BumperCars.meta
   externalObjects: {}
+  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -5,7 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - MiniGameZone
+  - plane
+  - Loader
   - Car
+  - level
   layers:
   - Default
   - TransparentFX
@@ -15,7 +18,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - UnWalkeAble
   - 
   - 
   - 

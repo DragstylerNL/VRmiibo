@@ -14,7 +14,7 @@ public class NetworkTransform : MonoBehaviour
     // ========================================================================================================== Update
     private void Update()
     {
-        Vector3 position = transform.position;
+        Vector3 position = transform.localPosition;
         if(_oldPosition != position)
             CLIENT.SetPosition(position);
         _oldPosition = position;
