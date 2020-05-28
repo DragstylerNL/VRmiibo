@@ -13,8 +13,8 @@ public class BumperCarsUI : MonoBehaviour
 
     private void Start()
     {
-        _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
-        _player = PlayerCollection.GetPlayer(_networkClient.NETWORKID).GetComponent<CarMovement>();
+        //_networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
+        _player = GameObject.FindWithTag("Player").GetComponent<CarMovement>();
     }
 
     public void Left()
@@ -35,8 +35,10 @@ public class BumperCarsUI : MonoBehaviour
 
     private IEnumerator Boosting()
     {
-        _player.SetBoost(true);
+        _boosting = true;
+        _player.SetBoost(_boosting);
         yield return new WaitForSeconds(cooldown);
-        _player.SetBoost(false);
+        _boosting = false;
+        _player.SetBoost(_boosting);
     }
 }
