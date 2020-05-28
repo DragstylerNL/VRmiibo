@@ -1,6 +1,17 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 5a38dae2c4bd6274bb781c570b710a0d
 NativeFormatImporter:
+=======
+<<<<<<< HEAD:VRmiibo/Assets/Scripts/Hub.meta
+guid: 302e567517b69ab42989e15c655d2b80
+folderAsset: yes
+DefaultImporter:
+=======
+guid: c6fa09d35ee31a64da6b98f300943617
+NativeFormatImporter:
+>>>>>>> feature/worldCamera:VRmiibo/Assets/Hub_assets/Materials/Hub_Caravan_UV.mat.meta
+>>>>>>> feature/worldCamera
   externalObjects: {}
   mainObjectFileID: 0
   userData: 

@@ -21,7 +21,7 @@ public class CarMovement : MonoBehaviour
         UpdateMovement();
     }
 
-    public void UpdateMovement()
+    private void UpdateMovement()
     {
         if (boosting){
             direction += transform.forward * boostAccelerationSpeed;
@@ -50,17 +50,17 @@ public class CarMovement : MonoBehaviour
         }
     }
     
-    private void TurnLeft()
+    public void TurnLeft()
     {
         transform.Rotate(Vector3.down * rotationSpeed);
     }
     
-    private void TurnRight()
+    public void TurnRight()
     {
         transform.Rotate(Vector3.up * rotationSpeed);
     }
 
-    private void SetBoost(bool activate)
+    public void SetBoost(bool activate)
     {
         boosting = activate;
     }

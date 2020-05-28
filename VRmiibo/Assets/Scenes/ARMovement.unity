@@ -141,7 +141,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _placable: {fileID: 2372448810617763261, guid: 98a70977703c2c94ebcc9c2ccf769ece,
     type: 3}
-  placementIndicator: {fileID: 859875945}
 --- !u!1001 &859875944
 PrefabInstance:
   m_ObjectHideFlags: 0

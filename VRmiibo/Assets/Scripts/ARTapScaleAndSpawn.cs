@@ -12,17 +12,17 @@ using Vector3 = UnityEngine.Vector3;
 public class ARTapScaleAndSpawn : MonoBehaviour
 {
     [SerializeField]private GameObject _placable;
+    private NetworkClient _networkClient;
     private GameObject _placedObject;
     private ARRaycastManager _raycastManager;
     private Pose _placementPose;
     private bool _placementPoseIsValid = false;
     private bool _placed = false;
     private ARRaycastHit _arRaycastHit;
-    
-    public GameObject placementIndicator;
-    
+
     void Start()
     {
+        _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
         _raycastManager = FindObjectOfType<ARRaycastManager>();
         Debug.Log(_raycastManager);
     }
@@ -30,7 +30,6 @@ public class ARTapScaleAndSpawn : MonoBehaviour
     void Update()
     {
         UpdatePlacementPose();
-        UpdatePlacementIndecator();
 
         if (_placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began || Input.GetKeyDown(KeyCode.A))
         {
@@ -44,27 +43,15 @@ public class ARTapScaleAndSpawn : MonoBehaviour
     {
         _placedObject.transform.position = _placementPose.position;
         _placedObject.transform.rotation = _placementPose.rotation;
-        RayIt();
+        RayScale();
     }
 
     private void PlaceObject()
     {
         _placedObject = Instantiate(_placable, _placementPose.position, _placementPose.rotation);
         _placed = true;
-        RayIt();
-    }
-    
-    private void UpdatePlacementIndecator()
-    {
-        if (_placementPoseIsValid)
-        {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(_placementPose.position, _placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
+        _networkClient.SetHub(true, _placedObject.transform);
+        RayScale();
     }
 
     private void UpdatePlacementPose()
@@ -84,7 +71,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         }
     }
 
-    private void RayIt()
+    private void RayScale()
     {
         Ray raycast = Camera.main.ScreenPointToRay(new Vector3(0.5f, 0.5f));
         //_placedObject.transform.localScale = Vector3.zero;
@@ -92,7 +79,7 @@ public class ARTapScaleAndSpawn : MonoBehaviour
         {
             if(raycastHit.collider.gameObject.CompareTag("plane"))
             //_placedObject.transform.localScale = new Vector3(_placedObject.transform.localScale.x / raycastHit.collider.gameObject.transform.localScale.x,_placedObject.transform.localScale.y / raycastHit.collider.gameObject.transform.localScale.y,_placedObject.transform.localScale.z / raycastHit.collider.gameObject.transform.localScale.z);
-            _placedObject.transform.localScale = raycastHit.collider.gameObject.transform.lossyScale;
+                _placedObject.transform.localScale = raycastHit.collider.gameObject.transform.lossyScale;
         }
     }    
 }
