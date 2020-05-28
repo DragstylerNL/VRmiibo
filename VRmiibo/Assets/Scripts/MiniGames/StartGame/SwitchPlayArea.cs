@@ -8,7 +8,7 @@ public class SwitchPlayArea : MonoBehaviour
 
     void Start()
     {
-        GameObject oldArea = GameObject.FindWithTag("PlayArea");
+        GameObject oldArea = GameObject.FindWithTag("level");
         Instantiate(newPlayArea, oldArea.transform);
         Destroy(oldArea);
     }
