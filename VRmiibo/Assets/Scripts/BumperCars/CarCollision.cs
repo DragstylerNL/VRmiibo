@@ -10,7 +10,7 @@ public class CarCollision : MonoBehaviour
         if (other.collider.CompareTag("Car"))
         {
             collided = true;
-            FindObjectOfType<CarCollisionManager>().Bump(GetComponent<CarMovement>(), other.collider.GetComponent<CarMovement>());
+            //FindObjectOfType<CarCollisionManager>().Bump(GetComponent<CarMovement>(), other.collider.GetComponent<CarMovement>());
         }
     }
 
