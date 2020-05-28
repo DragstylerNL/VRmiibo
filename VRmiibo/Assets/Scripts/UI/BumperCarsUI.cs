@@ -35,8 +35,10 @@ public class BumperCarsUI : MonoBehaviour
 
     private IEnumerator Boosting()
     {
-        _player.SetBoost(true);
+        _boosting = true;
+        _player.SetBoost(_boosting);
         yield return new WaitForSeconds(cooldown);
-        _player.SetBoost(false);
+        _boosting = false;
+        _player.SetBoost(_boosting);
     }
 }
