@@ -128,10 +128,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 973283699, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1919184138765678020, guid: ec1fd8357ced68445a146fa5b0b9ca16,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.28
+      value: 0.51
       objectReference: {fileID: 0}
     - target: {fileID: 1919184138765678020, guid: ec1fd8357ced68445a146fa5b0b9ca16,
         type: 3}
@@ -188,6 +192,36 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1919184138765678024, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: maxMoveSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919184138765678024, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: maxBoostSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919184138765678024, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: stop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919184138765678024, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: accelerationSpeed
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919184138765678024, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: boostAccelerationSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919184138765678024, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: stopSpeed
+      value: 0.001
+      objectReference: {fileID: 0}
     - target: {fileID: 1919184138765678025, guid: ec1fd8357ced68445a146fa5b0b9ca16,
         type: 3}
       propertyPath: m_Name
@@ -198,7 +232,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1919184139178842859, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1047852211, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}
+    - {fileID: 842933274, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}
+    - {fileID: 287981328, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}
+    - {fileID: 142566276, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}
 --- !u!1 &595023478
 GameObject:
@@ -451,7 +494,7 @@ Transform:
   m_GameObject: {fileID: 909074054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.634, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -537,6 +580,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BumperCar1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919184139178842859, guid: ec1fd8357ced68445a146fa5b0b9ca16,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec1fd8357ced68445a146fa5b0b9ca16, type: 3}

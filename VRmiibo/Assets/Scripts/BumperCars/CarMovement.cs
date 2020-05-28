@@ -15,6 +15,8 @@ public class CarMovement : MonoBehaviour
     public Vector3 adjustDir;
     private int currentStep = 0;
     private int stepGoal;
+    public float stopSpeed;
+    public bool stop;
     public Vector3 CurrentDirection
     {
         get { return currentDirection; }
@@ -25,7 +27,7 @@ public class CarMovement : MonoBehaviour
     {
         wantedSpeedDir = transform.forward * maxMoveSpeed;
         wantedBoostSpeedDir = transform.forward * maxBoostSpeed;
-        DirectionChanged(accelerationSpeed);
+        //DirectionChanged(accelerationSpeed);
     }
 
     void Update()
@@ -35,47 +37,56 @@ public class CarMovement : MonoBehaviour
 
     private void UpdateMovement()
     {
-        Vector3 direction = Vector3.zero;
-        if (boosting){
-            //direction += transform.forward * boostAccelerationSpeed;
-            //if (direction.magnitude > maxBoostSpeed) direction = direction.normalized * maxBoostSpeed;
-            currentDirection = Vector3.RotateTowards(currentDirection,transform.forward * maxBoostSpeed, rotationSpeed * Time.deltaTime, boostAccelerationSpeed);
-            transform.position += direction; 
+        if (stop)
+        {
+            currentDirection = Vector3.RotateTowards(currentDirection,Vector3.zero, rotationSpeed * Time.deltaTime, stopSpeed);
+            transform.position += currentDirection;
         }
         else
         {
-            if (Input.GetKey(KeyCode.A))
-            {
-                TurnLeft();
+            Vector3 direction = Vector3.zero;
+            if (boosting){
+                //direction += transform.forward * boostAccelerationSpeed;
+                //if (direction.magnitude > maxBoostSpeed) direction = direction.normalized * maxBoostSpeed;
+                currentDirection = Vector3.RotateTowards(currentDirection,transform.forward * maxBoostSpeed, rotationSpeed * Time.deltaTime, boostAccelerationSpeed);
+                transform.position += currentDirection; 
             }
-            if (Input.GetKey(KeyCode.D))
+            else
             {
-                TurnRight();
-            }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    TurnLeft();
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    TurnRight();
+                }
 
-            if (Input.GetKey(KeyCode.B))
-            {
-                SetBoost(true);
-            }
+                if (Input.GetKey(KeyCode.B))
+                {
+                    SetBoost(true);
+                }
             
-            //direction += transform.forward * accelerationSpeed;
-            //if (direction.magnitude > maxMoveSpeed) direction = direction.normalized * maxMoveSpeed;
-            /*time += Time.deltaTime * accelerationSpeed;
-            if (time >= 1f)
-            {
-                time = 1f;
+                //direction += transform.forward * accelerationSpeed;
+                //if (direction.magnitude > maxMoveSpeed) direction = direction.normalized * maxMoveSpeed;
+                /*time += Time.deltaTime * accelerationSpeed;
+                if (time >= 1f)
+                {
+                    time = 1f;
+                }
+                direction = Vector3.Lerp(startDirection,wantedSpeedDir, time);*/
+                currentDirection = Vector3.RotateTowards(currentDirection,transform.forward * maxMoveSpeed, rotationSpeed * Time.deltaTime, accelerationSpeed);
+                /*if (!StepGoalReached())
+                {
+                    currentDirection += adjustDir;
+                }*/
+                Debug.DrawRay(transform.position, currentDirection * 50, Color.cyan);
+                transform.position += currentDirection;
             }
-            direction = Vector3.Lerp(startDirection,wantedSpeedDir, time);*/
-            //currentDirection = Vector3.RotateTowards(currentDirection,transform.forward * maxMoveSpeed, rotationSpeed * Time.deltaTime, accelerationSpeed);
-            if (!StepGoalReached())
-            {
-                currentDirection += adjustDir;
-            }
-            Debug.DrawRay(transform.position, currentDirection * 50, Color.cyan);
-            transform.position += currentDirection;
+        
         }
 
-        currentStep++;
+        //currentStep++;
     }
 
     private void DirectionChanged(int newStepGoal)

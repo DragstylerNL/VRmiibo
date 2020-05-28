@@ -6,8 +6,8 @@ public class CarTrigger : MonoBehaviour
     {
         if (other.name.Contains("Trigger") && name == "TriggerFront")
         {
-            //FindObjectOfType<CarCollisionManager>().Bump(GetComponentInParent<CarMovement>().CurrentDirection, other.GetComponentInParent<CarMovement>());
-            //GetComponentInParent<CarMovement>().CurrentDirection = Vector3.back * 0.5f;
+            FindObjectOfType<CarCollisionManager>().Bump(GetComponentInParent<CarMovement>().CurrentDirection, other.GetComponentInParent<CarMovement>());
+            GetComponentInParent<CarMovement>().CurrentDirection = Vector3.back * 0.1f;
             Debug.Log("" + name + " hit " + other.name);
         }
     }
