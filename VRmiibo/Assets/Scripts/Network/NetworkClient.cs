@@ -88,7 +88,7 @@ public class NetworkClient : SocketIOComponent
         p.SetNick(RemoveQuotes(E.data["name"].ToString()));    // set players name
         p.SetAvatar(int.Parse(E.data["avatar"].ToString()));             // set player avatar
         PlayerCollection.ActivePlayers.Add(NETWORKID, playa);                 // add the player to the player collection
-        CameraPlayerPosition.start = true;
+        CameraPlayerPosition.start = true;                                    // activate the system
 
     }
 
