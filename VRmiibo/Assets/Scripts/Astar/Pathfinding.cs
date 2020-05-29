@@ -1,37 +1,25 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using  System.Diagnostics;
 
 public class Pathfinding : MonoBehaviour
 {
     private Transform seeker;
-    private NetworkClient _networkClient;
-    
-     Grid grid;
 
-     void Start()
-     {
-         _networkClient = GameObject.FindWithTag("NETWORKCLIENT").GetComponent<NetworkClient>();
-         seeker = PlayerCollection.GetPlayer(_networkClient.NETWORKID).transform;
-     }
+    Grid grid;
+
+
 
      void Awake()
      {
          grid = GetComponent<Grid>();
      }
 
-     private void Update()
+     public void SetSeeker(Transform _Seeker)
      {
-         /*
-         if (Input.GetButtonDown("Jump"))
-         {
-             FindPath(_target.position);
-         }*/
-       
+         seeker = _Seeker;
      }
-
+     
      public void FindPath(Vector3 targetPos)
     {
         Stopwatch sw = new Stopwatch();
@@ -61,7 +49,6 @@ public class Pathfinding : MonoBehaviour
             if (currentNode == targetNode)
             {
                 sw.Stop();
-                print("path found:" + sw.ElapsedMilliseconds + " ms");
                 RetracePath(startNode, targetNode);
                 return;
             }

@@ -89,6 +89,7 @@ public class NetworkClient : SocketIOComponent
         p.SetAvatar(int.Parse(E.data["avatar"].ToString()));             // set player avatar
         PlayerCollection.ActivePlayers.Add(NETWORKID, playa);                 // add the player to the player collection
         CameraPlayerPosition.start = true;                                    // activate the system
+        GameObject.FindWithTag("AStar").GetComponent<Pathfinding>().SetSeeker(playa.transform);
 
     }
 

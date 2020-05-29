@@ -12,6 +12,7 @@ TagManager:
   - NETWORKCLIENT
   - DoNotDestroy
   - OutOfBounce
+  - AStar
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Unwalkable
   - 
   - 
   - 
