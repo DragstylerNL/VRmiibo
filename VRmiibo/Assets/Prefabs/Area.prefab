@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3867751009519559513}
   - component: {fileID: 6737870833200466672}
   - component: {fileID: 3353434573569031385}
-  - component: {fileID: 7423934128628345947}
+  - component: {fileID: 372191125}
   m_Layer: 0
   m_Name: Bus
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 196662868492277348}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 6287264889813671132}
   - {fileID: 8774166995462255588}
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &7423934128628345947
+--- !u!65 &372191125
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0640447, y: 5.338336, z: 5.9221115}
-  m_Center: {x: 0, y: 2.6641698, z: -0.18826298}
+  m_Size: {x: 0.030640448, y: 0.053383354, z: 0.059221115}
+  m_Center: {x: -0.000000059604645, y: 0.026641699, z: -0.0018826299}
 --- !u!1 &964259098446571804
 GameObject:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ Transform:
   m_GameObject: {fileID: 2625751945495005798}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50.00002, y: 50, z: 50.00002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3867751009519559513}
   m_RootOrder: 1
@@ -263,8 +263,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.037579507, y: 0.020853579, z: 0.041952007}
-  m_Center: {x: -0.07008532, y: 0.015230328, z: -0.0003206879}
+  m_Size: {x: 0.012176988, y: 0.050860763, z: 0.022309536}
+  m_Center: {x: -0.032112353, y: 0.028137147, z: -0.0006506441}
 --- !u!114 &5496946973747853976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +386,7 @@ Transform:
   m_GameObject: {fileID: 4029615171719214497}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50.00002, y: 50, z: 50.00002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3867751009519559513}
   m_RootOrder: 2
@@ -402,8 +402,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10938975, y: 0.034986585, z: 0.045907732}
-  m_Center: {x: -0.009300202, y: 0.022296831, z: -0.029283242}
+  m_Size: {x: 0.05775307, y: 0.0468868, z: 0.010969018}
+  m_Center: {x: -0.0024979108, y: 0.02824694, z: -0.011813887}
 --- !u!114 &2086009709032966100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,7 +1261,7 @@ Transform:
   m_GameObject: {fileID: 8758442139925986578}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50.00002, y: 50, z: 50.00002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3867751009519559513}
   m_RootOrder: 3
@@ -1277,8 +1277,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10938975, y: 0.034986585, z: 0.045907732}
-  m_Center: {x: -0.009300202, y: 0.022296831, z: 0.02928324}
+  m_Size: {x: 0.05892037, y: 0.04742551, z: 0.012074986}
+  m_Center: {x: -0.0028502934, y: 0.028516293, z: 0.012366868}
 --- !u!114 &7950545768890784009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,7 +1320,7 @@ Transform:
   m_GameObject: {fileID: 9003956943277932241}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50.00002, y: 50, z: 50.00002}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3867751009519559513}
   m_RootOrder: 0
@@ -1336,8 +1336,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.037579507, y: 0.020853579, z: 0.041952007}
-  m_Center: {x: 0.07008532, y: 0.015230328, z: -0.0003206879}
+  m_Size: {x: 0.020013804, y: 0.04919529, z: 0.028780691}
+  m_Center: {x: 0.029300682, y: 0.029401183, z: 0.00000566244}
 --- !u!114 &7630076340543310877
 MonoBehaviour:
   m_ObjectHideFlags: 0
